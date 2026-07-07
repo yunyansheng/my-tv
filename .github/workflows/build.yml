@@ -21,8 +21,11 @@ jobs:
       - name: Verify Java version
         run: java -version
 
-      - name: Set Gradle Java home
-        run: echo "org.gradle.java.home=$JAVA_HOME" >> gradle.properties
+      - name: Fix gradle.properties and set Java home
+        run: |
+          # 确保文件末尾有换行，避免属性粘连
+          echo "" >> gradle.properties
+          echo "org.gradle.java.home=$JAVA_HOME" >> gradle.properties
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
