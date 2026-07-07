@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # 拉取完整 git 历史，否则 versionCode 计算为 0
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -23,7 +25,6 @@ jobs:
 
       - name: Fix gradle.properties and set Java home
         run: |
-          # 确保文件末尾有换行，避免属性粘连
           echo "" >> gradle.properties
           echo "org.gradle.java.home=$JAVA_HOME" >> gradle.properties
 
